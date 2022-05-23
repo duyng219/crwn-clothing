@@ -5,7 +5,10 @@ import CustomButton from "../custom-button/custom-button.component";
 
 import {auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
+import { Notification } from "../antd/notification/Notification";
+
 import './sign-in.styles.scss'
+import history from "../../history";
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -17,18 +20,37 @@ class SignIn extends React.Component {
         };
     }
 
+    // handleSubmit = async (event) => {
+    //     event.preventDefault();
+
+    //     const {email, password} = this.state
+
+    //     try {
+    //         await auth.signInWithEmailAndPassword(email,password)
+    //         this.setState({email:'',password:''})
+    //         Notification("success","Login successfull" ,"topRight")
+    //         history.push("/");
+    //     } catch (error) {
+    //         console.log(error );
+    //     }
+
+    // };
+
     handleSubmit = async (event) => {
-        event.preventDefault();
-
+        // Something
+        event.preventDefault()
         const {email, password} = this.state
-
         try {
             await auth.signInWithEmailAndPassword(email,password)
             this.setState({email:'',password:''})
+            Notification("success","Login successfull" ,"topRight")
+            window.location.href = '/'
         } catch (error) {
-            console.log(error );
+            // Accept the error and print it out
+            // Run only when there is an error in try
+            console.log(error.message)
+            window.location.href = 'https://stackoverflow.com/search?q=[Js]+'+ error.message
         }
-
     };
 
     handleChange = event => {
@@ -61,7 +83,7 @@ class SignIn extends React.Component {
             />
             <div className="buttons">
                 <CustomButton type="submit"> Sign in </CustomButton>
-                <CustomButton onClick={signInWithGoogle} isGoogleSignIn>Sign in with Google</CustomButton>
+                <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>Sign in with Google</CustomButton>
             </div>
             </form>
         </div>

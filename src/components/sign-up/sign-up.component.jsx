@@ -5,6 +5,8 @@ import CustomButton from '../custom-button/custom-button.component'
 
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'
 
+import { Notification } from '../antd/notification/Notification'
+
 import './sign-up.styles.scss'
 
 class SignUp extends React.Component {
@@ -18,6 +20,7 @@ class SignUp extends React.Component {
             confirmPassword: ''
         }
     }
+    
 
     hanldeSubmit = async event => {
         event.preventDefault()
@@ -25,7 +28,7 @@ class SignUp extends React.Component {
         const {displayName, email, password, confirmPassword } = this.state;
 
         if(password !== confirmPassword) {
-            alert("passwords don't match")
+            Notification("warning","passwords don't match" ,"top")
             return;
         }
 
@@ -41,7 +44,7 @@ class SignUp extends React.Component {
                 confirmPassword: ''
             });
 
-            alert("Register successfull")
+            Notification("success","Register successfull" ,"topRight")
 
         } catch (error) {
             console.error(error);
